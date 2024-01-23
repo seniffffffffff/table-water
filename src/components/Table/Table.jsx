@@ -6,6 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Paper } from "@mui/material";
+import { tableStyles } from "./styles";
 
 const TableComp = ({ tableData }) => {
   const { headerData, rowsData } = tableData;
@@ -13,24 +14,37 @@ const TableComp = ({ tableData }) => {
     <TableContainer
       component={Paper}
       aria-label="simple table"
-      sx={{ boxShadow: "none", display: "flex", justifyContent: "center" }}
+      sx={tableStyles.tableContainer}
     >
-      <Table sx={{ maxWidth: 1000 }}>
-        <TableHead>
+      <Table>
+        <TableHead sx={tableStyles.tableHead}>
           <TableRow>
             {headerData?.map((item) => {
-              return <TableCell key={item}>{item}</TableCell>;
+              return (
+                <TableCell
+                  key={item}
+                  sx={tableStyles.tableHeadCell}
+                  align="center"
+                >
+                  {item}
+                </TableCell>
+              );
             })}
           </TableRow>
         </TableHead>
         <TableBody>
           {rowsData?.map((row) => (
-            <TableRow
-              key={row.Data}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
+            <TableRow key={row.Data}>
               {headerData?.map((item) => {
-                return <TableCell key={item}>{row[item]}</TableCell>;
+                return (
+                  <TableCell
+                    key={item}
+                    sx={tableStyles.tableBodyCell}
+                    align="center"
+                  >
+                    {row[item]}
+                  </TableCell>
+                );
               })}
             </TableRow>
           ))}
